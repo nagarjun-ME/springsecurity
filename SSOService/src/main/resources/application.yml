@@ -1,2 +1,7 @@
 server:
   port : 8500
+#spring :
+#  security:
+#    user :
+#      name : testuser
+#      password : test1234
