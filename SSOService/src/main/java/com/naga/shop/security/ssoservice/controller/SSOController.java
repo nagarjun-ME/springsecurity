@@ -8,9 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sso/signin")
 public class SSOController {
 
-    @GetMapping("/")
+    @GetMapping("/user")
     public String sayWelcome()
     {
         return "Welcome to Shopping Service!!!";
+    }
+
+    @GetMapping("/admin")
+    public String sayWelcomeAdmin()
+    {
+        return "<h1>Welcome to Shopping Service!!!</h1>";
     }
 }
