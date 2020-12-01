@@ -2,6 +2,7 @@ package com.naga.shop.security.ssoservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -10,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
+@Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
@@ -22,7 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication()
                 .withUser("test")
                 .password(passwordEncoder.encode("testpass")).roles("TEST_ROLE")
-                .and().withUser("testadmin")
+                .and()
+                .withUser("testadmin")
                 .password(passwordEncoder.encode("admin123")).roles("ADMIN_ROLE");
     }
 
@@ -30,10 +33,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN_ROLE")
-                .antMatchers("/user").hasAnyRole("TEST_ROLE", "ADMIN_ROLE")
-                //.antMatchers("/sso/in").permitAll()
+                .antMatchers("/sso/in/").permitAll()
+                .anyRequest().authenticated()
                 .and().formLogin();
+//                .loginPage("/login")
+//                .permitAll()
+//                .and().logout()
+//                .permitAll()
+//                .and()
+//                .httpBasic();
+
     }
 
     @Bean

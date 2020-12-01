@@ -8,6 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sso/in")
 public class SSOController {
 
+    @GetMapping("/")
+    public String sayHello()
+    {
+        return "Hello..Welcome to Shopping Service!";
+    }
+
     @GetMapping("/user")
     public String sayWelcome()
     {
